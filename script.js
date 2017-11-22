@@ -1,32 +1,3 @@
-class Card {
-    constructor(id_name, source) {
-        this._id_name = id_name;
-        this._source = source;
-    }
-    _add_card(id_name, source) {
-        this._id_name = id_name;
-        this._source = source;
-        var card = new Card(id_name, source);
-    }
-    
-    add_card_to_page(id_name, source) {
-    _add_card(id_name, source);
-    document.getElementById('container').appendChild(document.createElement('IMG'));
-    card.setAttribute("src", source);
-    card.id = id_name;
-    card.className = 'item';
-    }
-}
-
-
-//создаем карточку с элементом img,  id_name - id карточки, source - осточник картинки
-/*function add_card(id_name, source) {
-    var card = document.getElementById('container').appendChild(document.createElement('IMG'));
-    card.setAttribute("src", source);
-    card.id = id_name;
-    card.className = 'item';
-}*/
-
 //функция, чтобы перемешать массив
 Array.prototype.shuffle = function () {
     var i = this.length,
@@ -40,6 +11,21 @@ Array.prototype.shuffle = function () {
     }
     return this;
 }
+
+class Card {
+    constructor(id_name, source) {
+        this._id_name = id_name;
+        this._source = source;
+    }
+    
+    add_card_to_page(id_name, source) {
+    var card = document.getElementById('container').appendChild(document.createElement('IMG'));
+    card.setAttribute("src", this._source);
+    card.id = this._id_name;
+    card.className = 'item';
+    }
+}
+
 
 //создаем массив путей к картинкам, где каждый путь встречается 2 раза, потом перемешиваем его
 function create_card_item() {
@@ -112,14 +98,13 @@ function choice_item() {
     }
 }
 
-
-//add_container();
 //создаем массив путей cards
 cards = create_card_item();
 
 //добавляем элементы, прописывая путь картинки в каждой карточке
 for (var i = 0; i < 16; i++) {
-    Сard.add_card_to_page(i + 1, cards[i]);
+    var card = new Card(i + 1, cards[i]);
+    card.add_card_to_page(i + 1, cards[i]);
 }
 
 mouse_over(cards);
