@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+}
+
+#container {
+    width: 640px;
+    height: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.item {
+    height: 136px;
+    width: 136px;
+    padding: 2px;
+    margin: 8px;
+    border: 2px solid grey;
+    display: inline-block;
+    vertical-align: center;
+    text-align: center;
+    cursor: pointer;
+}
