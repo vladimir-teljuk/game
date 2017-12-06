@@ -1,4 +1,4 @@
-//функция, чтобы перемешать массив
+/*/функция, чтобы перемешать массив
 Array.prototype.shuffle = function () {
     var i = this.length,
         j, temp;
