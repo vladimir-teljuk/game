@@ -20,10 +20,10 @@ class View {
     addClickEvent() {
         var card = document.getElementsByTagName('img');
         for (var i = 0; i < 16; i++) {
-            var that = this;
+            var that = this.controller;
             card[i].addEventListener('click', function (event) {
                 event.target.classList.add('open');
-                that.controller.compareChoiseCard(document.getElementsByClassName('open'))
+                that.compareChoiseCard(document.getElementsByClassName('open'))
             });
         }
     }
