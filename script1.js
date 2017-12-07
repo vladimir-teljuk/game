@@ -1,44 +1,52 @@
 class View {
 
-    constructor(controller) {
-        this.controller = controller;
+    buttonClick() {
+        var btn = document.getElementById('btn');
+        btn.addEventListener('click', function (event) {
+            event.target.style.display = 'none';
+            document.getElementById('container').style.display = 'inline-block';
+        })
     }
-
 
     drowCard(source) {
         var card = document.createElement('IMG');
         document.getElementById('container').appendChild(card);
         card.setAttribute("src", source);
-        card.addEventListener('mouseover', this.initAnimation.bind(card, '1.05'));
-        card.addEventListener('mouseout', this.initAnimation.bind(card, '1'));
+        View.addMouseOverAnimation(card, '1.05', '1');
     }
-
-    initAnimation(animationValue) {
+    static addMouseOverAnimation(card, over, out) {
+        card.addEventListener('mouseover', View.initAnimation.bind(card, over));
+        card.addEventListener('mouseout', View.initAnimation.bind(card, out));
+    }
+    static initAnimation(animationValue) {
         this.style.transform = 'scale(' + animationValue + ')';
     }
-
     addClickEvent() {
         var card = document.getElementsByTagName('img');
         for (var i = 0; i < 16; i++) {
-            var that = this.controller;
             card[i].addEventListener('click', function (event) {
                 event.target.classList.add('open');
-                that.compareChoiseCard(document.getElementsByClassName('open'))
+                Controller.compareChoiseCard(document.querySelectorAll('.open'))
             });
         }
     }
-
-    hiddenCard(card) {
-        card.style.visibility = 'hidden';
+    static equalCard(card) {
         card.classList.remove('open');
+        card.style.visibility = 'hidden';
+    }
+    static notEqualCard(card) {
+        card.classList.remove('open');
+        card.style.transform = 'scale(1)';
+    }
+    static waitSecondCard(card) {
+        card.style.transform = 'scale(1.1)';
+        View.addMouseOverAnimation(card, '1.', '1.1');
     }
 }
 class Controller {
-
     constructor(view) {
         this.view = view;
     }
-
     createCollectionPaths() {
         Array.prototype.shuffle = function () {
             var i = this.length,
@@ -62,29 +70,32 @@ class Controller {
         }
         return this._array_paths = this._array_paths.shuffle();
     }
-
-    addCard() {
+    createCard() {
         var sourceCollection = this.createCollectionPaths();
         for (var i = 0; i < 16; i++) {
             this.view.drowCard(sourceCollection[i]);
         }
-
+        this.view.buttonClick();
     }
     addEventToCard() {
         this.view.addClickEvent();
     }
-
-    compareChoiseCard(choiceCards) {
+    static compareChoiseCard(choiceCards) {
         if (choiceCards.length === 2) {
             if (choiceCards[0].src === choiceCards[1].src) {
                 for (var i = 0; i < choiceCards.length; i++)
-                    this.view.hiddenCard(choiceCards[i])
+                    View.equalCard(choiceCards[i])
+            } else {
+                for (var i = 0; i < choiceCards.length; i++)
+                    View.notEqualCard(choiceCards[i]);
             }
+        }
+        if (choiceCards.length === 1) {
+            View.waitSecondCard(choiceCards[0]);
         }
     }
 }
-
-const myController = new Controller(new View());
-const myView = new View(new Controller());
-myController.addCard();
+const myView = new View();
+const myController = new Controller(myView);
+myController.createCard();
 myController.addEventToCard();

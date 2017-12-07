@@ -3,11 +3,13 @@
 }
 
 #container {
+    display: none;
     width: 640px;
     height: 640px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 369px;
+    margin-right: 369px;
     margin-top: 20px;
+    
 }
 
 img {
@@ -20,4 +22,16 @@ img {
     vertical-align: center;
     text-align: center;
     cursor: pointer;
+}
+
+#btn {
+    outline: none;
+    border: none;
+    border: solid 1px #f2f2f2;
+    padding: 8px;
+    background-color: white;
+    cursor: pointer;
+    margin-left: 639px;
+    margin-right: 639px;
+    margin-top: 50px;
 }
