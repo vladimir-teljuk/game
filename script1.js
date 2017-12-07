@@ -37,10 +37,11 @@ class View {
     static notEqualCard(card) {
         card.classList.remove('open');
         card.style.transform = 'scale(1)';
+        View.addMouseOverAnimation(card, '1.05', '1');
     }
     static waitSecondCard(card) {
         card.style.transform = 'scale(1.1)';
-        View.addMouseOverAnimation(card, '1.', '1.1');
+        View.addMouseOverAnimation(card, '1.1', '1.1');
     }
 }
 class Controller {
