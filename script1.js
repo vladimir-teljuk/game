@@ -1,5 +1,4 @@
 class View {
-
     buttonClick() {
         var btn = document.getElementById('btn');
         btn.addEventListener('click', function (event) {
@@ -7,41 +6,39 @@ class View {
             document.getElementById('container').style.display = 'inline-block';
         })
     }
-
     drowCard(source) {
-        var card = document.createElement('IMG');
-        document.getElementById('container').appendChild(card);
-        card.setAttribute("src", source);
-        View.addMouseOverAnimation(card, '1.05', '1');
-    }
-    static addMouseOverAnimation(card, over, out) {
-        card.addEventListener('mouseover', View.initAnimation.bind(card, over));
-        card.addEventListener('mouseout', View.initAnimation.bind(card, out));
-    }
-    static initAnimation(animationValue) {
-        this.style.transform = 'scale(' + animationValue + ')';
+        var card = document.createElement('DIV');
+        card.classList.add('card');
+        var imgInCard = document.createElement('IMG');
+        document.getElementById('container').appendChild(card).appendChild(imgInCard);
+        imgInCard.setAttribute("src", source);
+
     }
     addClickEvent() {
-        var card = document.getElementsByTagName('img');
+        var card = document.getElementsByClassName('card');
         for (var i = 0; i < 16; i++) {
             card[i].addEventListener('click', function (event) {
-                event.target.classList.add('open');
+                this.classList.add('open');
                 Controller.compareChoiseCard(document.querySelectorAll('.open'))
             });
         }
     }
     static equalCard(card) {
+        card.firstChild.style.opacity = '1';
+        card.style.transform = 'scale(1)';
         card.classList.remove('open');
-        card.style.visibility = 'hidden';
     }
     static notEqualCard(card) {
+        card.firstChild.style.opacity = '0.5';
+        setTimeout(function () {
+            card.firstChild.style.opacity = '0';
+        }, 500)
         card.classList.remove('open');
-        card.style.transform = 'scale(1)';
-        View.addMouseOverAnimation(card, '1.05', '1');
     }
-    static waitSecondCard(card) {
-        card.style.transform = 'scale(1.1)';
-        View.addMouseOverAnimation(card, '1.1', '1.1');
+
+    static choiseOneCard(card) {
+        card.firstChild.style.opacity = '0.5';
+
     }
 }
 class Controller {
@@ -83,7 +80,7 @@ class Controller {
     }
     static compareChoiseCard(choiceCards) {
         if (choiceCards.length === 2) {
-            if (choiceCards[0].src === choiceCards[1].src) {
+            if (choiceCards[0].firstChild.src === choiceCards[1].firstChild.src) {
                 for (var i = 0; i < choiceCards.length; i++)
                     View.equalCard(choiceCards[i])
             } else {
@@ -92,7 +89,7 @@ class Controller {
             }
         }
         if (choiceCards.length === 1) {
-            View.waitSecondCard(choiceCards[0]);
+            View.choiseOneCard(choiceCards[0]);
         }
     }
 }

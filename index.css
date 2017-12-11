@@ -9,10 +9,12 @@
     margin-left: 369px;
     margin-right: 369px;
     margin-top: 20px;
-    
+
 }
 
-img {
+
+.card {
+
     height: 136px;
     width: 136px;
     padding: 2px;
@@ -22,6 +24,24 @@ img {
     vertical-align: center;
     text-align: center;
     cursor: pointer;
+    transform: scale(1);
+
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+img {
+    opacity: 0;
+    height: 136px;
+    width: 136px;
+    animation: opacitys 3s linear;
+}
+
+
+.open {
+    transform: scale(1.1);
 }
 
 #btn {
@@ -34,4 +54,22 @@ img {
     margin-left: 639px;
     margin-right: 639px;
     margin-top: 50px;
+}
+
+@keyframes opacitys {
+    0% {
+        -webkit-opacity: 0;
+    }
+    30%,
+    40%,
+    50%,
+    60% {
+        -webkit-opacity: 1;
+    }
+    70%,
+    80%,
+    90%,
+    100% {
+        -webkit-opacity: 0;
+    }
 }
